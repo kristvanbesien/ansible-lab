@@ -30,7 +30,7 @@ infra
 
 [OSEv3:vars]
 deployment_type=openshift-enterprise
-openshift_release=v3.5
+openshift_release=v3.3
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 openshift_master_htpasswd_users={'user': '$apr1$2HvcNWta$8GgPQ5IffxKPuqLC2mILw1'}
 openshift_master_cluster_public_hostname=master.lab
