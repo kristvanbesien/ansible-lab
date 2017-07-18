@@ -1,0 +1,20 @@
+- name: "Disable GSSAPIAuthentication for SSH login"
+  lineinfile:
+    regexp: "GSSAPIAuthentication"
+    line: "GSSAPIAuthentication no"
+    state: "present"
+    dest: "/etc/ssh/sshd_config"
+  notify:
+  - restart sshd
+
+- name: "Disable reverse DNS lookup on SSH login"
+  lineinfile:
+    regexp: "useDNS"
+    line: "useDNS no"
+    state: "present"
+    dest: "/etc/ssh/sshd_config" 
+  notify:
+  - restart sshd
+
+
+

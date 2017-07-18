@@ -1,0 +1,26 @@
+rh_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-rh-common-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.5-rpms
+  - rh-gluster-3-for-rhel-7-server-rpms
+
+packages:
+  - "@Development Tools"
+  - git
+  - screen
+  - mc
+  - wget
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils 
+  - bash-completion 
+  - sos
+  - psacct 
+  - atomic-openshift-utils
+  - atomic-openshift-clients
+  - cns-deploy 
+  - heketi-client
+
+

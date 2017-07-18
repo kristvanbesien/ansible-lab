@@ -1,0 +1,10 @@
+rh_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-rh-common-rpms
+packages:
+  - "@Development Tools"
+  - git
+  - screen
+  - mc
+

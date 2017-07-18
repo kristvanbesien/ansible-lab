@@ -1,0 +1,27 @@
+- stat: path=/etc/pki/consumer/cert.pem
+  register: registered
+
+
+- name: Register the box with the Red Hat Portal
+  redhat_subscription:
+    state: present
+    username: "{{ rh_username }}"
+    password: "{{ rh_password }}"
+    pool: "{{ rh_pool }}"
+    server_hostname: "{{ rh_server }}"
+    server_insecure: "{{ rh_insecure }}"
+    autosubscribe: false
+  when: registered.stat.exists == false
+
+- name: Set Repositories we need.
+  shell: |-
+     subscription-manager repos --disable '*'{{ ' ' }}
+     {%- for repo in rh_repos -%}
+       --enable {{ repo | quote }}{{ ' ' }}
+     {%-  endfor %}
+
+- name: Update MOTD
+  blockinfile: block="Registered with Red Hat CDN"
+               insertafter=EOF
+               marker="==============================================================="
+               dest=/etc/motd

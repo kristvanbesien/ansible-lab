@@ -1,0 +1,25 @@
+- name: Set Repositories we need.
+  shell: |-
+     subscription-manager repos --disable '*'{{ ' ' }}
+     {%- for repo in rh_repos -%}
+       --enable {{ repo | quote }}{{ ' ' }}
+     {%-  endfor %}
+
+- name: Install packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ packages }}"
+
+- name: Update MOTD
+  blockinfile: 
+    insertafter: EOF
+    marker: "==============================================================="
+    dest: /etc/motd
+    content: |
+      Repositories enabled:
+      {{ rh_repos | to_nice_yaml }}
+      Packages installed:
+      {{ packages | to_nice_yaml }}
+                  

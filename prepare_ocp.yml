@@ -1,0 +1,46 @@
+# Prepare for Openshift install
+
+# Prepare workstation
+
+- name: prepare openshift install workstation
+  hosts: workstation
+  remote_user: vagrant
+  become: true
+
+  roles:
+  - common-rhel
+  - register
+  - update
+  - install
+  - ssh_copy_id
+
+  tasks:
+  - name: Update MOTD
+    blockinfile: block="Openshift prepared"
+                 insertafter=EOF
+                 marker="==============================================================="
+                 dest=/etc/motd
+
+# Prepare nodes.
+
+- name: Prepare nodes
+  hosts: masters,nodes,storage,infra
+  remote_user: vagrant
+  become: true
+  
+  roles:
+  - common-atomic
+
+# Create topology.json
+# Note: "work" is synched between the local host and the virtual workstation by Vagrant
+
+- name: create topology.json
+  hosts: workstation
+  remote_user: vagrant
+  become: true
+
+  tasks:
+  - template:
+      src: work/topology.j2
+      dest: work/topology.json 
+  

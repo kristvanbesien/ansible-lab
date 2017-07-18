@@ -1,0 +1,37 @@
+# Make sure an SSH key exists, and copy it to all the other hosts in the inventory.
+# The expected result is that on the host this role is executed the ssh_user
+# will be able to ssh in to all other hosts in the inventory without needing to
+# provide a password.
+
+
+- user:
+    name: "{{ ssh_user }}"
+    generate_ssh_key: yes
+    state: present
+  register: my_user
+
+
+- authorized_key:
+    user: "{{ item[0] }}"
+    key: "{{ my_user.ssh_public_key }}"
+  delegate_to: "{{ item[1] }}"
+  with_nested: 
+  - "{{ remote_ssh_user }}"
+  - "{{ groups['all'] }}"
+
+# We also collect the host ssh keys, and add them to known hosts, to get rid of
+# the annoying confirmation on the first ssh login ( or ansible run)
+# For that we do need to collect facts on all the other hosts...
+
+- setup: 
+    gather_subset: network
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['all'] }}"
+  register: hostkeys
+
+- known_hosts:
+    path: /etc/ssh/ssh_known_hosts  
+    name: "{{ item.name }}"
+    key: "{{ item.name }},{{ item.ip}} ecdsa-sha2-nistp256 {{item.key}}"
+  with_items: "{{ hostkeys.results | json_query ('[].ansible_facts.{ name: ansible_fqdn, ip: ansible_default_ipv4.address, key:  ansible_ssh_host_key_ecdsa_public }') }}"
+

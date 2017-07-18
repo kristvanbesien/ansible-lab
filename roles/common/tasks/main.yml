@@ -1,0 +1,36 @@
+- name: Set a MOTD
+  template: src=motd.j2
+            dest=/etc/motd
+            owner=root
+            group=root
+            mode=0644
+
+- name: Set the timezone
+  timezone: name=Europe/Zurich
+
+- name: "Add  hostname to hostfile"
+  lineinfile: 
+    dest: /etc/hosts 
+    regexp: '^.*{{ ansible_hostname }}$' 
+    line: "{{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}" 
+    state: present
+  when: ansible_default_ipv4.address is defined
+
+- name: Set authorized key for remote user copying it from current user
+  authorized_key:
+    user: "{{ ansible_env.SUDO_USER }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+- name: Set password less admin privileges in policykit
+  copy:
+    src: 49-nopasswd_global.rules
+    dest: /etc/polkit-1/rules.d/
+
+- name: Set password less sudo for remote user
+  template:
+    src: adminuser.j2
+    dest: /etc/sudoers.d/adminuser
+
+
+

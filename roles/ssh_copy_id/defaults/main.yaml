@@ -1,0 +1,4 @@
+---
+ssh_user: 'vagrant'
+remote_ssh_user: 'vagrant'
+
