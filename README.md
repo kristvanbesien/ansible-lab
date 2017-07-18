@@ -1,5 +1,5 @@
-A small Open Shift Vagrant lab.
-==============================
+A set of ansible roles to use with Vagrant to build smiple labs.
+================================================================
 
 
 What you'll need.
@@ -21,10 +21,6 @@ Clone this repository.
 Edit the Vagrantfile to reflect the names you gave your boxes.
 
 ```
-vagrant up ws osmaster node-{1..3} storage-{1..3} infra-1 --no-parallel --no-provision 
+vagrant up 
 ```
-
-```
-vagrant provision ws
-````
 
