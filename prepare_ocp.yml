@@ -31,6 +31,23 @@
   roles:
   - common-atomic
 
+# Add ip/hostnames to storagehosts
+
+- name: fill /etc/hosts
+  hosts: storage
+  remote_user: vagrant
+  become: true
+  
+  tasks:
+  - name: Update /etc/hosts from inventory
+    lineinfile: 
+      dest: /etc/hosts 
+      regexp: '.*{{item}}$' 
+      line: '{{hostvars[item].ansible_default_ipv4.address}} {{item}} {{hostvars[item].ansible_fqdn}}' 
+      state: present
+    with_items: '{{groups.storage}}'
+
+
 # Create topology.json
 # Note: "work" is synched between the local host and the virtual workstation by Vagrant
 
