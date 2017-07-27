@@ -4,14 +4,10 @@ rh_repos:
   - rhel-7-server-extras-rpms
   - rh-gluster-3-for-rhel-7-server-rpms
 
+
 packages:
-  - screen
-  - mc
-  - wget
-  - bash-completion 
-  - gdeploy
-  - glusterfs-fuse
-  - heketi
-  - heketi-client
+  - redhat-storage-server
+  - gstatus
+
 
 

@@ -1,5 +1,5 @@
 rh_insecure: 0
-rh_pool: "Red Hat Enterprise Linux"
+rh_pool: "Red Hat Gluster Storage"
 rh_username: "{{ vault_rh_username }}"
 rh_password: "{{ vault_rh_password }}"
 rh_server: subscription.rhn.stage.redhat.com

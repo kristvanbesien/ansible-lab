@@ -1,11 +1,11 @@
-A set of ansible roles to use with Vagrant to build smiple labs.
-================================================================
+A set of ansible roles to use with Vagrant to build simple gluster lab .
+========================================================================
 
 
 What you'll need.
 ----------------
 
-A Vagrant Rhel 7 box, and a Vagrant  Atomic Host box. I have prepared a few boxes and you can download them here:
+A Vagrant Rhel 7 box. I have prepared a few boxes and you can download them here:
 
 http://file.emea.redhat.com/~kvanbesi/vagrantboxes/
 
