@@ -8,7 +8,7 @@
   become: true
 
   roles:
-  - common-rhel
+  - common
   - register
   - update
   - install
@@ -29,7 +29,10 @@
   become: true
   
   roles:
-  - common-atomic
+  - common
+  - register
+  - update
+  - install
 
 # Add ip/hostnames to storagehosts
 

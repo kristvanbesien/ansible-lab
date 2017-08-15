@@ -2,7 +2,7 @@ rh_repos:
   - rhel-7-server-rpms
   - rhel-7-server-rh-common-rpms
   - rhel-7-server-extras-rpms
-  - rhel-7-server-ose-3.5-rpms
+  - rhel-7-server-ose-3.3-rpms
   - rh-gluster-3-for-rhel-7-server-rpms
 
 packages:
@@ -22,5 +22,7 @@ packages:
   - atomic-openshift-clients
   - cns-deploy 
   - heketi-client
+  - docker
+  - glusterfs-fuse
 
 
