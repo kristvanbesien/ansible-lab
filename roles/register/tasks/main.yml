@@ -12,6 +12,10 @@
     server_insecure: "{{ rh_insecure }}"
     autosubscribe: false
   when: registered.stat.exists == false
+  retries: 3
+  delay: 3
+  register: result
+  until: result | success
 
 - name: Set Repositories we need.
   shell: |-
@@ -19,9 +23,18 @@
      {%- for repo in rh_repos -%}
        --enable {{ repo | quote }}{{ ' ' }}
      {%-  endfor %}
+  retries: 3
+  delay: 3
+  register: result
+  until: result | success
 
 - name: Update MOTD
-  blockinfile: block="Registered with Red Hat CDN"
-               insertafter=EOF
-               marker="==============================================================="
-               dest=/etc/motd
+  blockinfile: 
+    insertafter: EOF
+    marker: "==============================================================="
+    dest: /etc/motd
+    content: |
+      Registered with Red Hat CDN
+      Repositories enabled:
+      {{ rh_repos | to_nice_yaml }}
+
