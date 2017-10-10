@@ -8,6 +8,8 @@ infra-1.lab
 storage-1.lab
 storage-2.lab
 storage-3.lab
+storage-4.lab
+storage-5.lab
 
 [nodes]
 node-1.lab
@@ -17,6 +19,8 @@ master.lab
 storage-1.lab
 storage-2.lab
 storage-3.lab
+storage-4.lab
+storage-5.lab
 
 [workstation]
 ws.lab
@@ -38,6 +42,8 @@ openshift_master_default_subdomain=apps.lab
 os_sdn_network_plugin_name="redhat/openshift-ovs-subnet"
 ansible_ssh_user=vagrant
 ansible_become=true
+openshift_docker_additional_registries="brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888"
+openshift_docker_insecure_registries="brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888"
 
 [masters:vars]
 openshift_schedulable=false
@@ -45,7 +51,7 @@ openshift_node_labels="{'zone': 'default'}"
 
 [storage:vars]
 openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
-os_firewall_allow="[ { 'service': 'glusterd', 'port': '24007/tcp' }, { 'service': 'glustermanagement', 'port': '24008/tcp' }, { 'service': 'rsh', 'port': '2222/tcp' }, { 'service': 'glusterbricks', 'port': '49152:49251/tcp' } ]"
+os_firewall_allow="[ { 'service': 'gluster', 'port': '24006:24008/tcp' },{ 'service': 'rpc', 'port': '111/tcp' }, { 'service': 'iSCSI', 'port': '326/0tcp' }, { 'service': 'rsh', 'port': '2222/tcp' }, { 'service': 'glusterbricks', 'port': '49152:49251/tcp' } ]"
 
 [infra:vars]
 openshift_node_labels="{'region': 'infra', 'zone': 'default'}"

@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 N = 2
-M = 3
+M = 5
 I = 1
 
 Vagrant.configure("2") do |config|
@@ -30,6 +30,8 @@ Vagrant.configure("2") do |config|
   config.landrush.tld = 'lab'
   config.landrush.upstream  '127.0.0.1'
   config.landrush.host 'apps.lab', 'infra-1.lab'
+  config.landrush.host_redirect_dns = false
+
 
   config.ssh.forward_agent = false
 
