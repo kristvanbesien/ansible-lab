@@ -1,5 +1,10 @@
 - name: upgrade all packages
   yum: name=* state=latest
+  retries: 3
+  delay: 3
+  register: result
+  until: result | success
+
 
 - name: Update MOTD
   blockinfile: block="All Packages updated {{ ansible_date_time.iso8601 }}"
