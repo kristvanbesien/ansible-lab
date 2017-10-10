@@ -28,6 +28,10 @@
   register: result
   until: result | success
 
+- name: pin the release
+  shell: subscription-manager release --set={{ rh_release }}
+  when: rh_release is defined
+
 - name: Update MOTD
   blockinfile: 
     insertafter: EOF
