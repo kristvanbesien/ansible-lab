@@ -15,7 +15,7 @@
 
   tasks:
   - name: Update MOTD
-    blockinfile: block="Openshift prepared"
+    blockinfile: block="prepared"
                  insertafter=EOF
                  marker="==============================================================="
                  dest=/etc/motd
