@@ -1,0 +1,83 @@
+{"nodes": 
+  [ 
+    {
+      "name" : "osp11_node-4",
+      "capabilities": "profile:compute,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:64:d9:95"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "60004"
+    },{
+      "name" : "osp11_store-1",
+      "capabilities": "profile:ceph-storage,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:e7:08:af"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "61001"
+    },{
+      "name" : "osp11_store-2",
+      "capabilities": "profile:ceph-storage,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:a0:a7:83"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "61002"
+    },{
+      "name" : "osp11_store-3",
+      "capabilities": "profile:ceph-storage,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:39:02:ca"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "61003"
+    },{
+      "name" : "osp11_node-1",
+      "capabilities": "profile:control,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:e4:15:3e"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "60001"
+    },{
+      "name" : "osp11_node-2",
+      "capabilities": "profile:control,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:ee:4a:03"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "60002"
+    },{
+      "name" : "osp11_node-3",
+      "capabilities": "profile:control,boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "pm_password": "password",
+      "mac": [
+        "52:54:00:a7:06:8d"
+      ],
+      "pm_addr": "192.168.121.1",
+      "pm_port": "60003"
+    } 
+  ]
+}
+

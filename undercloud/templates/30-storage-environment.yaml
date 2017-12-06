@@ -1,0 +1,23 @@
+## A Heat environment file which can be used to set up storage
+## backends. Defaults to Ceph used as a backend for Cinder, Glance and
+## Nova ephemeral storage.
+parameter_defaults:
+
+  CinderEnableIscsiBackend: false
+  CinderEnableRbdBackend: true
+  NovaEnableRbdBackend: true
+  GlanceBackend: rbd
+  GnocchiBackend: rbd
+  ExtraConfig:
+    ceph::profile::params::osds:
+      '/dev/vdc':
+        journal:  '/dev/vdb'
+      '/dev/vdd':
+        journal:  '/dev/vdb'
+      '/dev/vde':
+        journal:  '/dev/vdb'
+
+resource_registry:
+  OS::TripleO::NodeUserData: /home/stack/templates/firstboot/wipe-disks.yaml
+
+

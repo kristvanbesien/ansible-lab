@@ -1,0 +1,6 @@
+templates: /usr/share/openstack-tripleo-heat-templates/
+environments:
+  - /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml
+  - /home/stack/templates/10-node-info.yaml
+  - /home/stack/templates/20-network-environment.yaml
+  - /home/stack/templates/30-storage-environment.yaml

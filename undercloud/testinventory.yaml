@@ -1,0 +1,13 @@
+# Playbook to create the nodes.json (aka instackenv.json)
+- name: Create nodes.json
+  hosts: localhost
+  gather_facts: false
+
+
+  tasks:
+  - copy:
+      content: "{{ hostvars }}"
+      dest: ./hostvars.json
+      
+          
+

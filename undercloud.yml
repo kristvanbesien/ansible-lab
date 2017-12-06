@@ -1,0 +1,39 @@
+# This plabook contains two plays. The first one sets up the basic stuff for the host.
+# Tis creates the stack user, and enables the rhos repositories
+- name: prepare undercloud
+  hosts: undercloud
+  remote_user: vagrant
+  become: true
+
+  roles:
+  - common-rhel
+  - register
+  - update
+  - install 
+  - stack_user
+
+
+# The second play installs the undercloud.
+- name: install undercloud
+  hosts: undercloud
+  remote_user: stack
+  become: true
+  become_user: stack
+
+
+  roles:
+  - undercloud
+
+
+# Last play fixes a few things...
+
+- name: fix network
+  hosts: undercloud
+  remote_user: vagrant
+  become: true
+
+  roles:
+  - network
+
+
+

@@ -1,0 +1,10 @@
+parameter_defaults:
+  OvercloudControlFlavor: control
+  OvercloudComputeFlavor: compute
+  OvercloudCephStorageFlavor: ceph-storage
+  ControllerCount: 3
+  ComputeCount: 1
+  CephStorageCount: 3
+  NeutronNetworkType: vxlan
+  NeutronTunnelTypes: vxlan
+  TimeZone: 'Europe/Zurich'

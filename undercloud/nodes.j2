@@ -1,0 +1,19 @@
+{"nodes": 
+  [ 
+    {% for host in groups['overcloud'] -%}
+    {
+      "name" : "{{host}}",
+      "capabilities": "profile:{{hostvars[host].profile}},boot_option:local",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "{{hostvars[host].ilo_username}}",
+      "pm_password": "{{hostvars[host].ilo_password}}",
+      "mac": [
+        "{{hostvars[host].boot_mac}}"
+      ],
+      "pm_addr": "{{hostvars[host].ilo_address}}",
+      "pm_port": "{{hostvars[host].ilo_port}}"
+    } {%- if not loop.last %},{% endif -%}
+    {%- endfor %} 
+  ]
+}
+

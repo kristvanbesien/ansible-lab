@@ -1,0 +1,12 @@
+# Playbook to create the nodes.json (aka instackenv.json)
+- name: Create nodes.json
+  hosts: localhost
+  gather_facts: false
+
+
+  tasks:
+          
+  - template:
+      src: ./nodes.j2
+      dest: ./nodes.json 
+

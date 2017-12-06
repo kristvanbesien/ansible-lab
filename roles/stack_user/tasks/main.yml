@@ -1,0 +1,20 @@
+- name: add the stack user
+  user: name=stack
+
+- name: enable sudo for the stack user
+  copy: src=sudoers.d/stack
+        dest=/etc/sudoers.d/stack  
+        validate='visudo -cf %s'
+        mode=440
+        owner=root
+        group=root
+
+- name: Add authorized keys to the stack user
+  authorized_key:
+    user: "stack"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+
+
+
