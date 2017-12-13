@@ -16,9 +16,9 @@ Vagrant.configure("2") do |config|
   end
 
 
-  config.landrush.enabled = true
-  config.landrush.tld = 'lab'
-  config.landrush.upstream  '127.0.0.1'
+#  config.landrush.enabled = true
+#  config.landrush.tld = 'lab'
+#  config.landrush.upstream  '127.0.0.1'
 
   config.ssh.forward_agent = false
 
