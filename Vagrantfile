@@ -16,14 +16,11 @@ Vagrant.configure("2") do |config|
   end
 
 
-#  config.landrush.enabled = true
-#  config.landrush.tld = 'lab'
-#  config.landrush.upstream  '127.0.0.1'
 
   config.ssh.forward_agent = false
 
   config.vm.define "ws", primary: true do |nd|
-    nd.vm.box = "rhel-7.3-stage"
+    nd.vm.box = "rhel-7.4-stage"
     nd.vm.synced_folder "./work", "/home/vagrant/work", type: "nfs", nfs_version: 4, nfs_udp: false
     nd.vm.hostname = "ws.lab"
     nd.vm.provision :ansible do |ansible|
@@ -36,7 +33,7 @@ Vagrant.configure("2") do |config|
 
   (1..N).each do |id|
     config.vm.define "gluster-#{id}"   do |nd|
-      nd.vm.box = "rhel-7.3-stage"
+      nd.vm.box = "rhel-7.4-stage"
       nd.vm.provider :libvirt do |lv|
         lv.storage :file, :size => '60G', :type => 'qcow2'
         lv.storage :file, :size => '60G', :type => 'qcow2'

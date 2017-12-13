@@ -74,37 +74,5 @@
       marker: "==============================================================="
       dest: /etc/motd
 
-#  Setup Heketi on WS
-
-- name: Setup Heketi 
-  hosts: workstation
-  remote_user: vagrant
-  become: true
-
-  roles:
-  - { name: ssh_copy_id, ssh_user: 'heketi', remote_ssh_user: 'root' }
  
-  tasks:
-  - name: Create Topology 
-    template:
-      src: work/topology.j2
-      dest: work/topology.json 
-
-  - name: Create heketi config
-    copy:
-      src: work/heketi.json
-      dest: /etc/heketi/heketi.json
-      owner: heketi
-      group: heketi
-  - name: Start and enable heketi
-    service: 
-      name: heketi
-      state: started
-      enabled: yes
-  - name: Add HEKETI_CLI_SERVER to .bashrc
-    lineinfile: 
-      dest: /home/vagrant/.bashrc
-      regexp: 'HEKETI_CLI_SERVER' 
-      line: 'export HEKETI_CLI_SERVER=http://localhost:8080' 
-      state: present
       
