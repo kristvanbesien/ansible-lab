@@ -2,29 +2,6 @@
 
 # Prepare workstation
 
-- name: prepare workstation
-  hosts: ws
-  remote_user: vagrant
-  become: true
-
-  roles:
-  - common-rhel
-  - register
-  - update
-  - install
-  - { name: ssh_copy_id, remote_ssh_user: ['vagrant', 'root'] }
-
-
-  tasks:
-  - name: Update MOTD
-    blockinfile: 
-      block: "Host prepared"
-      insertafter: EOF
-      marker: "==============================================================="
-      dest: /etc/motd
-
-
-
 - name: prepare gluster nodes
   hosts: gluster
   remote_user: vagrant
@@ -37,16 +14,6 @@
   - install
 
   tasks:
-  - name: disable NetworkManager
-    service: 
-      name: NetworkManager 
-      enabled: no
-      state: stopped
-  - name: enable network
-    service: 
-      name: network 
-      enabled: yes
-      state: restarted
   - name: Update /etc/hosts from inventory
     lineinfile: 
       dest: /etc/hosts
@@ -54,14 +21,7 @@
       line: '{{hostvars[item].ansible_default_ipv4.address}} {{item}}' 
       state: present
     with_items: '{{groups.all}}'
-  - name: Add firewall rules.
-    firewalld:
-      port: '{{ item }}'
-      permanent: true
-      state: enabled
-    with_items:
-    - 49152-49251/tcp
-    - 24007-24011/tcp
+
   - name: Start gluster service
     service: 
       name: glusterd
@@ -73,38 +33,11 @@
       insertafter: EOF
       marker: "==============================================================="
       dest: /etc/motd
-
-#  Setup Heketi on WS
-
-- name: Setup Heketi 
-  hosts: workstation
-  remote_user: vagrant
-  become: true
-
-  roles:
-  - { name: ssh_copy_id, ssh_user: 'heketi', remote_ssh_user: 'root' }
- 
-  tasks:
   - name: Create Topology 
     template:
       src: work/topology.j2
       dest: work/topology.json 
+    delegate_to: localhost
+    run_once: true
 
-  - name: Create heketi config
-    copy:
-      src: work/heketi.json
-      dest: /etc/heketi/heketi.json
-      owner: heketi
-      group: heketi
-  - name: Start and enable heketi
-    service: 
-      name: heketi
-      state: started
-      enabled: yes
-  - name: Add HEKETI_CLI_SERVER to .bashrc
-    lineinfile: 
-      dest: /home/vagrant/.bashrc
-      regexp: 'HEKETI_CLI_SERVER' 
-      line: 'export HEKETI_CLI_SERVER=http://localhost:8080' 
-      state: present
       
