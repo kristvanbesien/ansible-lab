@@ -1,18 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-
 Vagrant.configure("2") do |config|
 
 
   groups = {
            "workstation" => ["ws"]
            }
-
-
-  config.landrush.enabled = true
-  config.landrush.tld = 'lab'
-  config.landrush.upstream  '127.0.0.1'
 
   config.ssh.forward_agent = false
 
