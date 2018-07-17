@@ -1,14 +1,56 @@
 # Prepare for Gluster install
 
 # Prepare workstation
+- name: prepare workstation
+  hosts: ws
+  remote_user: vagrant
+  become: true
+
+  roles:
+  - common
+  - register
+  - update
+  - install
+  - { name: ssh_copy_id, remote_ssh_user: ['vagrant', 'root'] }
+
+
+  tasks:
+  - name: Update MOTD
+    blockinfile: 
+      block: "Host prepared"
+      insertafter: EOF
+      marker: "==============================================================="
+      dest: /etc/motd
 
 - name: prepare gluster nodes
   hosts: gluster
   remote_user: vagrant
   become: true
 
+  handlers:
+  - name: restart NetworkManager
+    service: name=NetworkManager state=restarted
+
+
+  pre_tasks:
+  - name: modify network manager config
+    ini_file:
+      path: /etc/NetworkManager/NetworkManager.conf
+      section: main
+      option: dns
+      value: none
+    notify: "restart NetworkManager"
+  - name: fix resolv.conf
+    copy:
+      content: |
+        search lab
+        nameserver 192.168.121.1
+      dest: /etc/resolv.conf
+
+   
+
   roles:
-  - common-rhel
+  - common
   - register
   - update
   - install
@@ -33,11 +75,5 @@
       insertafter: EOF
       marker: "==============================================================="
       dest: /etc/motd
-  - name: Create Topology 
-    template:
-      src: work/topology.j2
-      dest: work/topology.json 
-    delegate_to: localhost
-    run_once: true
 
       
